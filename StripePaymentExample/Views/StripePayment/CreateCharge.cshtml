@@ -1,0 +1,45 @@
+﻿
+<script src="https://checkout.stripe.com/checkout.js"></script>
+
+<button id="customButton">Purchase</button>
+
+<script>
+    var handler = StripeCheckout.configure({
+        key: 'pk_test_rWeTFCfXZNzTJR5AYEDoJpgB',
+        image: 'https://www.pyarana.com/favicon.ico',
+        locale: 'auto',
+        token: function (token) {
+            debugger;
+            var id = token.id;
+            // You can access the token ID with `token.id`.
+            // Get the token ID to your server-side code for use.
+        }
+    });
+
+    document.getElementById('customButton').addEventListener('click', function (e) {
+        // Open Checkout with further options:
+        handler.open({
+            name: 'Pyarana',
+            description: 'From Friendship To Love',
+            amount: 100,
+            currency: 'USD'
+        });
+        e.preventDefault();
+    });
+
+    // Close Checkout on page navigation:
+    window.addEventListener('popstate', function () {
+        handler.close();
+    });
+</script>
+
+@*<form action="/api/StripePayment/CreateCharge" method="POST">
+    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+            data-key="pk_test_rWeTFCfXZNzTJR5AYEDoJpgB"
+            data-amount="999"
+            data-name="Pyarana LLC"
+            data-description="Widget"
+            data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+            data-locale="auto">
+    </script>
+    </form>*@
